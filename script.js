@@ -3,12 +3,10 @@ Treehouse FSJS Techdegree:
 project 1 - A Random Quote Generator
 ******************************************/
 
-// For assistance: 
-  // Check the "Project Resources" section of the project instructions
-  // Reach out in your Slack community - https://treehouse-fsjs-102.slack.com/app_redirect?channel=chit-chat
 
+  
 /*** 
- * `quotes` array 
+ * `quotes` array - 5 Yogi Berra quotes
 ***/
 
 var quotes = [
@@ -25,25 +23,80 @@ var quotes = [
     source: "Yogi Berra"
   },
   {
-    quote: "Never answer an anonymous letter",
-    source: "Yogi Berra"
+    quote: "Ninety percent of this game is half mental",
+    source: "Yogi Berra",
+    citation: "Sports Illustrated",
+    year: 1979
   },
   {
     quote: "You can observe a lot just by watching",
-    source: "Yogi Berra"
+    source: "Yogi Berra",
+    comedy: "Observational Humor"
   }
 ]
 
-/***
- * `getRandomQuote` function
-***/
+console.log(quotes);
+
+/* ****************************
+Colors array
+****************** */
+var colors = ["#50BFE6", "#FF00CC", "#FFCC33", "#FF6EFF", "#FF6037"]
 
 
 
 /***
- * `printQuote` function
+ * `getRandomQuote` function - Random Number 0-4
+***/
+var randomNumber;
+
+function getRandomQuote() {
+  randomNumber = Math.floor(Math.random() * 5);
+}
+
+getRandomQuote();
+
+/***
+ * `printQuote` function - generate string from quote object
 ***/
 
+var htmlString;
+
+function printQuote() {
+  getRandomQuote() 
+  randomQuote = quotes[randomNumber];
+    htmlString = 
+    '<p class="quote">' + randomQuote.quote + '</p>' +
+    '<p class="source">' + randomQuote.source;
+  if (randomQuote.citation) {
+     htmlString += '<span class="citation">' + randomQuote.citation + '</span>';
+  }
+  if (randomQuote.year) {
+    htmlString += '<span class="year">' + randomQuote.year + '</span>';
+  }
+  if (randomQuote.comedy) {
+    htmlString += '<p class="comedy"><em>Filed under: </em>' + randomQuote.comedy + '</p>';
+  }
+  htmlString +=  ' </p>';
+
+
+  document.getElementById('quote-box').innerHTML = htmlString;
+
+  getRandomQuote(); 
+  document.body.style.backgroundColor = colors[randomNumber];
+}
+
+/* *********
+set initial quote
+********** */
+
+window.onload = printQuote();
+
+
+/* ****************************
+Automatic new quote every 10 s
+****************** */
+
+setInterval(printQuote, 5000);
 
 
 /***
@@ -51,4 +104,4 @@ var quotes = [
  * DO NOT CHANGE THE CODE BELOW!!
 ***/
 
-document.getElementById('load-quote').addEventListener("click", printQuote, false);
+ document.getElementById('load-quote').addEventListener("click", printQuote, false);
